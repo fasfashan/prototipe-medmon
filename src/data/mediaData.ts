@@ -1,0 +1,248 @@
+export type Sentiment = "Positive" | "Neutral" | "Negative";
+
+export type Article = {
+  id: string;
+  title: string;
+  media: string;
+  date: string;
+  sentiment: Sentiment;
+  company: string;
+  url: string;
+};
+
+export const articles: Article[] = [
+  {
+    id: "art-001",
+    title: "Aurora Mobile reports Q4 growth amid ad market rebound",
+    media: "MarketWatch",
+    date: "2025-12-02",
+    sentiment: "Positive",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-q4-growth",
+  },
+  {
+    id: "art-002",
+    title: "Nimbus Energy faces regulatory review in EU expansion",
+    media: "Reuters",
+    date: "2025-12-05",
+    sentiment: "Negative",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-review",
+  },
+  {
+    id: "art-003",
+    title: "Keystone Health launches AI triage pilots across clinics",
+    media: "TechCrunch",
+    date: "2025-12-06",
+    sentiment: "Positive",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-ai-triage",
+  },
+  {
+    id: "art-004",
+    title: "Aurora Mobile rolls out new creator analytics suite",
+    media: "The Verge",
+    date: "2025-12-08",
+    sentiment: "Positive",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-creator-analytics",
+  },
+  {
+    id: "art-005",
+    title: "Nimbus Energy delays offshore project after supply issues",
+    media: "Bloomberg",
+    date: "2025-12-10",
+    sentiment: "Negative",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-delay",
+  },
+  {
+    id: "art-006",
+    title: "Keystone Health stabilizes operating margins in 2025",
+    media: "Forbes",
+    date: "2025-12-13",
+    sentiment: "Neutral",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-margins",
+  },
+  {
+    id: "art-007",
+    title: "Aurora Mobile partners with Horizon Studios on gaming push",
+    media: "IGN",
+    date: "2025-12-16",
+    sentiment: "Positive",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-horizon",
+  },
+  {
+    id: "art-008",
+    title: "Nimbus Energy outlines 2026 capex reductions",
+    media: "Financial Times",
+    date: "2025-12-18",
+    sentiment: "Negative",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-capex",
+  },
+  {
+    id: "art-009",
+    title: "Keystone Health expands telehealth coverage to rural regions",
+    media: "CNBC",
+    date: "2025-12-20",
+    sentiment: "Positive",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-telehealth",
+  },
+  {
+    id: "art-010",
+    title: "Aurora Mobile shares dip as competition heats up",
+    media: "Wall Street Journal",
+    date: "2025-12-22",
+    sentiment: "Negative",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-shares",
+  },
+  {
+    id: "art-011",
+    title: "Nimbus Energy announces long-term hydrogen partnership",
+    media: "Energy Today",
+    date: "2025-12-24",
+    sentiment: "Positive",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-hydrogen",
+  },
+  {
+    id: "art-012",
+    title: "Keystone Health reports steady patient satisfaction scores",
+    media: "Healthcare Weekly",
+    date: "2025-12-26",
+    sentiment: "Neutral",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-satisfaction",
+  },
+  {
+    id: "art-013",
+    title: "Aurora Mobile introduces privacy-first ad targeting model",
+    media: "AdWeek",
+    date: "2025-12-28",
+    sentiment: "Positive",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-privacy",
+  },
+  {
+    id: "art-014",
+    title: "Nimbus Energy faces short-term margin pressure",
+    media: "S&P Global",
+    date: "2026-01-02",
+    sentiment: "Negative",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-margins",
+  },
+  {
+    id: "art-015",
+    title: "Keystone Health secures regional insurer partnerships",
+    media: "Modern Healthcare",
+    date: "2026-01-04",
+    sentiment: "Positive",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-insurer",
+  },
+  {
+    id: "art-016",
+    title: "Aurora Mobile updates platform roadmap for 2026",
+    media: "Product Hunt",
+    date: "2026-01-07",
+    sentiment: "Neutral",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-roadmap",
+  },
+  {
+    id: "art-017",
+    title: "Nimbus Energy signs offshore safety audit agreement",
+    media: "Oil & Gas Journal",
+    date: "2026-01-10",
+    sentiment: "Neutral",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-safety",
+  },
+  {
+    id: "art-018",
+    title: "Keystone Health boosts nurse retention through new incentives",
+    media: "NPR",
+    date: "2026-01-12",
+    sentiment: "Positive",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-retention",
+  },
+  {
+    id: "art-019",
+    title: "Aurora Mobile faces lawsuit over app store policies",
+    media: "The Guardian",
+    date: "2026-01-15",
+    sentiment: "Negative",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-lawsuit",
+  },
+  {
+    id: "art-020",
+    title: "Nimbus Energy showcases carbon capture pilot results",
+    media: "EcoWatch",
+    date: "2026-01-18",
+    sentiment: "Positive",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-carbon",
+  },
+  {
+    id: "art-021",
+    title: "Keystone Health outlines 2026 digital transformation plan",
+    media: "Harvard Business Review",
+    date: "2026-01-20",
+    sentiment: "Neutral",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-digital",
+  },
+  {
+    id: "art-022",
+    title: "Aurora Mobile secures enterprise messaging contract",
+    media: "ZDNet",
+    date: "2026-01-22",
+    sentiment: "Positive",
+    company: "Aurora Mobile",
+    url: "https://example.com/aurora-enterprise",
+  },
+  {
+    id: "art-023",
+    title: "Nimbus Energy reassures investors after storm outages",
+    media: "Associated Press",
+    date: "2026-01-24",
+    sentiment: "Neutral",
+    company: "Nimbus Energy",
+    url: "https://example.com/nimbus-outages",
+  },
+  {
+    id: "art-024",
+    title: "Keystone Health receives national innovation award",
+    media: "USA Today",
+    date: "2026-01-26",
+    sentiment: "Positive",
+    company: "Keystone Health",
+    url: "https://example.com/keystone-award",
+  },
+];
+
+export const sentimentColors: Record<Sentiment, string> = {
+  Positive: "#22c55e",
+  Neutral: "#f59e0b",
+  Negative: "#ef4444",
+};
+
+export const sentimentScore: Record<Sentiment, number> = {
+  Positive: 1,
+  Neutral: 0,
+  Negative: -1,
+};
+
+export const formatDate = (dateString: string) =>
+  new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
