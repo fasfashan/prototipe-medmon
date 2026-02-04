@@ -78,6 +78,7 @@
 
 .content {
   padding: 32px 36px 48px;
+  min-width: 0;
 }
 
 .header {
@@ -276,6 +277,8 @@
   border-radius: 16px;
   padding: 16px 18px 20px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .news-list {
@@ -470,6 +473,11 @@
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper table {
+  min-width: 900px;
 }
 
 .sentiment-pill {
@@ -509,9 +517,57 @@
 }
 
 @media (max-width: 640px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    padding: 10px 12px;
+    border-right: none;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+  }
+
+  .brand {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 6px;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    flex: 1 0 auto;
+    justify-content: center;
+    flex-direction: column;
+    padding: 8px 10px;
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .content {
+    padding: 20px 16px 96px;
+  }
+
   .header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .filters {

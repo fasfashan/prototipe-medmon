@@ -13,6 +13,7 @@ import MediaPage from "./pages/MediaPage";
 import TopicsPage from "./pages/TopicsPage";
 import SpokespersonPage from "./pages/SpokespersonPage";
 import ArticlesPage from "./pages/ArticlesPage";
+import ReportsPage from "./pages/ReportsPage";
 import { articles, sentimentScore } from "./data/mediaData";
 import type { Sentiment } from "./data/mediaData";
 import { Button } from "./components/ui/button";
@@ -26,6 +27,7 @@ import {
   User,
   TrendingUp,
   LogOut,
+  FileText,
 } from "lucide-react";
 
 const inferTopic = (title: string) => {
@@ -372,6 +374,13 @@ const DashboardLayout = ({ onLogout }: DashboardLayoutProps) => {
             <Newspaper className="nav-icon" />
             Rekap Pemberitaan
           </NavLink>
+          <NavLink
+            to="/reports"
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <FileText className="nav-icon" />
+            Reports
+          </NavLink>
         </nav>
         <div className="sidebar-footer">
           <Button
@@ -387,7 +396,7 @@ const DashboardLayout = ({ onLogout }: DashboardLayoutProps) => {
 
       <main className="content">
         <header className="header flex flex-col items-start">
-          <div className="bg-white flex justify-between items-center rounded-lg p-4 shadow-sm mb-4 w-full">
+          <div className="header-bar bg-white flex justify-between items-center rounded-lg p-4 shadow-sm mb-4 w-full">
             <img className="h-8" src="/tbs-logo.png" alt="TBS Logo" />
             <div className="header-actions">
               <Button>Export Data</Button>
@@ -444,6 +453,7 @@ function App() {
           <Route path="topik" element={<TopicsPage />} />
           <Route path="spokesperson" element={<SpokespersonPage />} />
           <Route path="rekap-pemberitaan" element={<ArticlesPage />} />
+          <Route path="reports" element={<ReportsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

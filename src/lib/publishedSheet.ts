@@ -1,19 +1,20 @@
-const PUBLISHED_SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vRc-1cZn0ErdhSuZTpDbJ6sJxUeF-WUar9-F64aT48ABP7W7TmDTXE4UwArq6RskH2OInIxyF1e8INR/pubhtml";
+const SPREADSHEET_ID = "1GE3b0j5FYOjrzKHy_tQeA9dEm6tRz0O3DFH3YJt9Pi0";
+const BASE_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv`;
 
 export const SHEET_REFRESH_MS = 60_000;
 
 export type SheetApiRow = Record<string, string | undefined>;
 
-const toCsvUrl = (url: string) => {
-  if (url.includes("output=csv")) return url;
-  if (url.includes("/pubhtml")) {
-    return url.replace("/pubhtml", "/pub?output=csv");
+const toCsvUrl = (sheetNameOrGid?: string) => {
+  if (!sheetNameOrGid) return BASE_URL;
+
+  // kalau angka, anggap itu gid
+  if (/^\d+$/.test(sheetNameOrGid)) {
+    return `${BASE_URL}&gid=${sheetNameOrGid}`;
   }
-  if (url.includes("/pub?")) {
-    return `${url}&output=csv`;
-  }
-  return `${url}${url.includes("?") ? "&" : "?"}output=csv`;
+
+  // fallback ke nama sheet
+  return `${BASE_URL}&sheet=${encodeURIComponent(sheetNameOrGid)}`;
 };
 
 const parseCsv = (text: string) => {
@@ -62,8 +63,10 @@ const parseCsv = (text: string) => {
   return rows;
 };
 
-export const fetchPublishedSheetRows = async (): Promise<SheetApiRow[]> => {
-  const csvUrl = toCsvUrl(PUBLISHED_SHEET_URL);
+export const fetchPublishedSheetRows = async (
+  sheetName?: string,
+): Promise<SheetApiRow[]> => {
+  const csvUrl = toCsvUrl(sheetName);
   const response = await fetch(csvUrl);
   if (!response.ok) {
     throw new Error("Gagal mengambil data Google Sheet.");

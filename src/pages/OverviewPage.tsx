@@ -463,7 +463,7 @@ const OverviewPage = () => {
         <Button onClick={() => fetchSheet()}>Refresh data</Button>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 mt-4">
+      <section className="grid gap-4 grid-cols-2 md:grid-cols-2 xl:grid-cols-4 mt-4">
         <Card className="rounded-2xl border bg-white shadow-sm">
           <CardContent className="p-6">
             <p className="text-sm text-slate-500">Total Pemberitaan</p>

@@ -34,6 +34,7 @@ type ArticleRow = {
   company: string;
   url: string;
   mediaType: string;
+  mediaScope: string;
   spokesperson: string;
   mainframe: string;
   topic: string;
@@ -102,6 +103,7 @@ const ArticlesPage = () => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [mediaType, setMediaType] = useState("Semua");
+  const [mediaScope, setMediaScope] = useState("Semua");
   const [page, setPage] = useState(1);
 
   const fetchSheet = async (showLoading = true) => {
@@ -145,6 +147,14 @@ const ArticlesPage = () => {
               getValue("MEDIA_TYPE") ||
               "",
           ) || "";
+        const mediaScopeValue =
+          String(
+            getValue("SCOPE MEDIA") ||
+              getValue("SCOPE_MEDIA") ||
+              getValue("MEDIA SCOPE") ||
+              getValue("MEDIA_SCOPE") ||
+              "",
+          ) || "";
         const spokesperson =
           String(
             getValue("SPOKESPERSON") ||
@@ -173,6 +183,7 @@ const ArticlesPage = () => {
           company: company || "-",
           url: url || "#",
           mediaType: resolveMediaType(mediaTypeValue),
+          mediaScope: mediaScopeValue.trim() || "-",
           spokesperson: spokesperson.trim() || "-",
           mainframe: mainframe.trim() || "-",
           topic: topic.trim() || "-",
@@ -225,16 +236,18 @@ const ArticlesPage = () => {
         (!dateTo || article.date <= dateTo);
       const matchesMedia =
         mediaType === "Semua" || article.mediaType === mediaType;
-      return matchesDate && matchesMedia;
+      const matchesScope =
+        mediaScope === "Semua" || article.mediaScope === mediaScope;
+      return matchesDate && matchesMedia && matchesScope;
     });
-  }, [rows, dateFrom, dateTo, mediaType]);
+  }, [rows, dateFrom, dateTo, mediaType, mediaScope]);
 
   const pageSize = 50;
   const totalPages = Math.max(1, Math.ceil(filteredRows.length / pageSize));
 
   useEffect(() => {
     setPage(1);
-  }, [dateFrom, dateTo, mediaType]);
+  }, [dateFrom, dateTo, mediaType, mediaScope]);
 
   useEffect(() => {
     if (page > totalPages) {
@@ -299,6 +312,22 @@ const ArticlesPage = () => {
                 </SelectContent>
               </Select>
             </div>
+            <div className="flex min-w-[160px] flex-col gap-2">
+              <label className="text-xs text-slate-500" htmlFor="mediaScope">
+                Scope media
+              </label>
+              <Select value={mediaScope} onValueChange={setMediaScope}>
+                <SelectTrigger id="mediaScope">
+                  <SelectValue placeholder="Pilih scope media" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Semua">Semua</SelectItem>
+                  <SelectItem value="Nasional">Nasional</SelectItem>
+                  <SelectItem value="Lokal">Lokal</SelectItem>
+                  <SelectItem value="Internasional">Internasional</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <div className="flex min-w-[150px] flex-col gap-2">
               <label
                 className="text-xs text-slate-500"
@@ -332,6 +361,7 @@ const ArticlesPage = () => {
               variant="outline"
               onClick={() => {
                 setMediaType("Semua");
+                setMediaScope("Semua");
                 setDateFrom(DEFAULT_START_DATE);
                 setDateTo(todayString);
               }}
@@ -346,6 +376,7 @@ const ArticlesPage = () => {
                   <TableHead className="text-sm">No</TableHead>
                   <TableHead className="text-sm">Tanggal</TableHead>
                   <TableHead className="text-sm">Headline</TableHead>
+                  <TableHead className="text-sm">Scope Media</TableHead>
                   <TableHead className="text-sm">Spokesperson</TableHead>
                   <TableHead className="text-sm">Mainframe</TableHead>
                   <TableHead className="text-sm">Topik</TableHead>
@@ -363,6 +394,9 @@ const ArticlesPage = () => {
                       {formatLongDate(article.date)}
                     </TableCell>
                     <TableCell className="text-sm">{article.title}</TableCell>
+                    <TableCell className="text-sm">
+                      {article.mediaScope}
+                    </TableCell>
                     <TableCell className="text-sm">
                       {article.spokesperson}
                     </TableCell>
