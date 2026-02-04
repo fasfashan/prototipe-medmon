@@ -349,7 +349,7 @@ const ArticlesPage = () => {
                   <TableHead className="text-sm">Spokesperson</TableHead>
                   <TableHead className="text-sm">Mainframe</TableHead>
                   <TableHead className="text-sm">Topik</TableHead>
-                  <TableHead className="text-sm">Tone/Sentimen</TableHead>
+                  <TableHead className="text-sm">Tone</TableHead>
                   <TableHead className="text-sm">Link</TableHead>
                 </TableRow>
               </TableHeader>
