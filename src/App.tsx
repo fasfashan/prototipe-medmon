@@ -102,15 +102,20 @@ const LoginPage = ({ onLogin }: LoginProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+    <div
+      className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 bg-cover bg-center"
+      style={{ backgroundImage: "url('/MedMon-Webs-2.jpg')" }}
+    >
+      <img className="mb-4" width={40} src="/logo-blur.png" alt="" />
+      <img width={400} src="/medmon.png" alt="" />
       <Card className="w-full max-w-md rounded-2xl border bg-white shadow-sm">
         <CardContent className="space-y-4 p-6">
           <div className="space-y-1">
             <h2 className="text-xl font-semibold text-slate-900">
-              Login Dashboard
+              Monitor. Analyze. Respond.
             </h2>
             <p className="text-sm text-slate-500">
-              Masukkan kredensial untuk melanjutkan.
+              Welcome to your media monitoring center. Sign in to begin
             </p>
           </div>
           <form className="space-y-3" onSubmit={handleSubmit}>
@@ -148,9 +153,6 @@ const LoginPage = ({ onLogin }: LoginProps) => {
               Masuk
             </Button>
           </form>
-          <p className="text-xs text-slate-400">
-            Gunakan kredensial prototipe yang sudah diset.
-          </p>
         </CardContent>
       </Card>
     </div>
