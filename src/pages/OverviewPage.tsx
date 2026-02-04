@@ -183,13 +183,12 @@ const OverviewPage = () => {
     return ["All", ...uniqueCompanies];
   }, [rows]);
 
-  const [minDate, maxDate] = useMemo(() => {
+  const [minDate] = useMemo(() => {
     const dates = rows
       .map((item) => item.publishedDate)
       .filter(Boolean)
       .sort();
-    const max = dates[dates.length - 1] ?? "";
-    return [DEFAULT_START_DATE, max];
+    return [DEFAULT_START_DATE, dates[dates.length - 1] ?? ""]; 
   }, [rows]);
 
   const todayString = useMemo(() => {
@@ -461,7 +460,7 @@ const OverviewPage = () => {
         <Button variant="outline" onClick={handleReset}>
           Reset filter
         </Button>
-        <Button onClick={fetchSheet}>Refresh data</Button>
+        <Button onClick={() => fetchSheet()}>Refresh data</Button>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 mt-4">
@@ -668,7 +667,12 @@ const OverviewPage = () => {
             <label className="text-xs text-nowrap text-slate-500">
               Urutkan menurut
             </label>
-            <Select value={sortBy} onValueChange={setSortBy}>
+            <Select
+              value={sortBy}
+              onValueChange={(value) =>
+                setSortBy(value as "TANGGAL" | "MEDIA" | "HEADLINE" | "TONE" | "LINK")
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Urutkan menurut" />
               </SelectTrigger>
