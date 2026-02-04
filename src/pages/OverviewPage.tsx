@@ -188,7 +188,7 @@ const OverviewPage = () => {
       .map((item) => item.publishedDate)
       .filter(Boolean)
       .sort();
-    return [DEFAULT_START_DATE, dates[dates.length - 1] ?? ""]; 
+    return [DEFAULT_START_DATE, dates[dates.length - 1] ?? ""];
   }, [rows]);
 
   const todayString = useMemo(() => {
@@ -670,7 +670,9 @@ const OverviewPage = () => {
             <Select
               value={sortBy}
               onValueChange={(value) =>
-                setSortBy(value as "TANGGAL" | "MEDIA" | "HEADLINE" | "TONE" | "LINK")
+                setSortBy(
+                  value as "TANGGAL" | "MEDIA" | "HEADLINE" | "TONE" | "LINK",
+                )
               }
             >
               <SelectTrigger>
