@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BrowserRouter,
   NavLink,
@@ -16,6 +16,8 @@ import ArticlesPage from "./pages/ArticlesPage";
 import { articles, sentimentScore } from "./data/mediaData";
 import type { Sentiment } from "./data/mediaData";
 import { Button } from "./components/ui/button";
+import { Card, CardContent } from "./components/ui/card";
+import { Input } from "./components/ui/input";
 import {
   Home,
   LayoutDashboard,
@@ -69,7 +71,93 @@ const spokespersonMap: Record<string, string> = {
   "Keystone Health": "Dr. Maya Putri",
 };
 
-const DashboardLayout = () => {
+type LoginProps = {
+  onLogin: () => void;
+};
+
+type DashboardLayoutProps = {
+  onLogout: () => void;
+};
+
+const AUTH_USERNAME = "admin";
+const AUTH_PASSWORD = "medmon2026";
+const AUTH_STORAGE_KEY = "medmon-auth";
+
+const LoginPage = ({ onLogin }: LoginProps) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (
+      username.trim() === AUTH_USERNAME &&
+      password.trim() === AUTH_PASSWORD
+    ) {
+      setError(null);
+      onLogin();
+      return;
+    }
+    setError("Username atau password tidak sesuai.");
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+      <Card className="w-full max-w-md rounded-2xl border bg-white shadow-sm">
+        <CardContent className="space-y-4 p-6">
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold text-slate-900">
+              Login Dashboard
+            </h2>
+            <p className="text-sm text-slate-500">
+              Masukkan kredensial untuk melanjutkan.
+            </p>
+          </div>
+          <form className="space-y-3" onSubmit={handleSubmit}>
+            <div className="space-y-2">
+              <label className="text-xs text-slate-500" htmlFor="loginUser">
+                Username
+              </label>
+              <Input
+                id="loginUser"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                placeholder="Username"
+                autoComplete="username"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs text-slate-500" htmlFor="loginPass">
+                Password
+              </label>
+              <Input
+                id="loginPass"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Password"
+                autoComplete="current-password"
+              />
+            </div>
+            {error ? (
+              <p className="text-xs text-rose-500" role="alert">
+                {error}
+              </p>
+            ) : null}
+            <Button className="w-full" type="submit">
+              Masuk
+            </Button>
+          </form>
+          <p className="text-xs text-slate-400">
+            Gunakan kredensial prototipe yang sudah diset.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+const DashboardLayout = ({ onLogout }: DashboardLayoutProps) => {
   const dates = useMemo(
     () => articles.map((article) => article.date).sort(),
     [],
@@ -284,7 +372,11 @@ const DashboardLayout = () => {
           </NavLink>
         </nav>
         <div className="sidebar-footer">
-          <Button variant="outline" className="logout-button">
+          <Button
+            variant="outline"
+            className="logout-button"
+            onClick={onLogout}
+          >
             <LogOut className="nav-icon" />
             Log out
           </Button>
@@ -319,10 +411,31 @@ const DashboardLayout = () => {
 };
 
 function App() {
+  const [isAuthed, setIsAuthed] = useState(false);
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(AUTH_STORAGE_KEY);
+    setIsAuthed(stored === "true");
+  }, []);
+
+  const handleLogin = () => {
+    window.localStorage.setItem(AUTH_STORAGE_KEY, "true");
+    setIsAuthed(true);
+  };
+
+  const handleLogout = () => {
+    window.localStorage.removeItem(AUTH_STORAGE_KEY);
+    setIsAuthed(false);
+  };
+
+  if (!isAuthed) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<DashboardLayout />}>
+        <Route element={<DashboardLayout onLogout={handleLogout} />}>
           <Route index element={<OverviewPage />} />
           <Route path="rangkuman" element={<SummaryPage />} />
           <Route path="media" element={<MediaPage />} />
