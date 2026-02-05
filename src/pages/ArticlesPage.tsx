@@ -94,6 +94,8 @@ const resolveToneLabel = (tone: string, sentiment: ArticleRow["sentiment"]) => {
   return "Netral";
 };
 
+const normalizeScope = (value: string) => value.trim().toLowerCase();
+
 const DEFAULT_START_DATE = "2025-01-01";
 
 const ArticlesPage = () => {
@@ -237,7 +239,8 @@ const ArticlesPage = () => {
       const matchesMedia =
         mediaType === "Semua" || article.mediaType === mediaType;
       const matchesScope =
-        mediaScope === "Semua" || article.mediaScope === mediaScope;
+        mediaScope === "Semua" ||
+        normalizeScope(article.mediaScope) === normalizeScope(mediaScope);
       return matchesDate && matchesMedia && matchesScope;
     });
   }, [rows, dateFrom, dateTo, mediaType, mediaScope]);
