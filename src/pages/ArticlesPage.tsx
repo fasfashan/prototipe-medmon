@@ -72,8 +72,13 @@ const resolveMediaType = (value: string) => {
   if (!raw) return "Online";
   const lower = raw.toLowerCase();
   if (lower.includes("cetak") || lower.includes("print")) return "Cetak";
-  if (lower.includes("online") || lower.includes("digital")) return "Online";
-  return raw;
+  if (
+    lower.includes("online") ||
+    lower.includes("digital") ||
+    lower.includes("web")
+  )
+    return "Online";
+  return "Online";
 };
 
 const formatLongDate = (value: string) => {
@@ -143,8 +148,8 @@ const ArticlesPage = () => {
         );
         const mediaTypeValue =
           String(
-            getValue("JENIS MEDIA") ||
-              getValue("JENIS_MEDIA") ||
+            getValue("JENIS") ||
+              getValue("JENIS") ||
               getValue("MEDIA TYPE") ||
               getValue("MEDIA_TYPE") ||
               "",
